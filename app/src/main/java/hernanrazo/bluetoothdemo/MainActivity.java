@@ -2,6 +2,7 @@ package hernanrazo.bluetoothdemo;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,11 +15,27 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
     private final int BLUETOOTH_REQUEST = 1;
     private final int LOCATION_REQUEST = 2;
+
+
+    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+
+    //query paired devices to see if any are already familiar
+    if(pairedDevices.size() > 0) {
+
+        for (BluetoothDevice device : pairedDevices) {
+
+            //retrieve names and MAC addresses of any devices
+            String deviceName = device.getName();
+            String deviceHardwareAddress = device.getAddress();
+        }
+    }
 
     //function for requesting location permission
     public boolean locationPermissionCheck() {
@@ -82,9 +99,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private ArrayList getAlreadyPairedDevices() {
-        ArrayList
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
